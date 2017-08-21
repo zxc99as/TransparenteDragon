@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-	private float exp;
+	private float m_exp;
 
 	private void Start()
 	{
-		exp = 1.0f;
+        m_exp = 1.0f;
 	}
 
 	public float Exp
 	{
-		get { return exp; }
-		set { exp = value; }
+		get { return m_exp; }
+		set { m_exp = value; }
 	}
 }

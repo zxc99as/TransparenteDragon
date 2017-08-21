@@ -4,22 +4,38 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-	public static EventManager instance;
-	private Queue<Event> eventQ;
+	public static EventManager g_instance; // 싱글턴
 
-	private void Awake()
+	private Queue<Event> m_eventList; // 이벤트 리스트
+    public ushort m_eventMax; // 이벤트 리스트 최대갯수
+
+    private void Awake()
 	{
-		instance = this;
-		eventQ = new Queue<Event>();
+        g_instance = this;
+        m_eventList = new Queue<Event>();
 	}
 
+    private void Update()
+    {
+        HandleEvent();
+    }
+
+    // 이벤트 리스트를 돌며 실행합니다.
 	public void HandleEvent()
 	{
-		//e.ActiveEvent();
+        Event eventTemp;
+
+        while(m_eventList.Count != 0)
+        {
+            eventTemp = m_eventList.Dequeue();
+            eventTemp.ActiveEvent();
+        }
 	}
 
+    // 이벤트 삽입
 	public void AddQueue(Event e)
 	{
-		eventQ.Enqueue(e);
+        if(m_eventList.Count < m_eventMax)
+            m_eventList.Enqueue(e);
 	}
 }
